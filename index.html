@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SANNXPLOIT — Explore the Future of Web Development</title>
+  <style>/* === VARIABLES & RESET === */
+:root{
+  --bg:#05060a;
+  --card: rgba(255,255,255,0.04);
+  --glass: rgba(255,255,255,0.03);
+  --accent1:#00f0ff;
+  --accent2:#8b5cf6;
+  --accent3:#10b981;
+  --text:#e6eef8;
+  --muted:#9aa6b2;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, #05060a 0%, #081018 100%);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+
+/* PRELOADER */
+.preloader{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;background:#000;z-index:9999}
+.glitch{font-family:'Orbitron',sans-serif;color:var(--accent1);font-size:40px;letter-spacing:2px;text-shadow:0 0 12px rgba(0,240,255,0.12)}
+.loader-bar{width:240px;height:6px;background:rgba(255,255,255,0.04);border-radius:6px;margin-top:16px;overflow:hidden}
+.loader-bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent1),var(--accent2));animation:load 2s infinite}
+@keyframes load{0%{width:0}50%{width:80%}100%{width:0}}
+
+/* PROGRESS BAR */
+#progress-bar{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent1),var(--accent2));width:0;z-index:999}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;padding:12px 6%;display:flex;align-items:center;justify-content:space-between;z-index:900;transition:all .28s ease}
+.navbar.scrolled{background:rgba(3,6,12,0.7);backdrop-filter:blur(6px);box-shadow:0 8px 30px rgba(2,6,20,0.6)}
+.brand-logo{font-weight:800;color:var(--accent1);font-family:'Orbitron';letter-spacing:1px}
+.brand-sub{font-size:12px;color:var(--muted)}
+.nav-links{display:flex;gap:18px;list-style:none}
+.nav-links a{color:var(--muted);font-weight:600;padding:8px 10px;border-radius:8px}
+.nav-links a:hover{color:var(--accent1);background:rgba(255,255,255,0.02)}
+.icon-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px;border-radius:8px;color:var(--muted);cursor:pointer}
+.mobile-only{display:none}
+
+/* HERO */
+.hero{min-height:100vh;padding-top:86px;display:flex;align-items:center;justify-content:center;position:relative}
+.particles{position:absolute;inset:0;z-index:0}
+.hero-inner{position:relative;z-index:2;display:flex;gap:40px;align-items:center;max-width:1200px;margin:0 auto;padding:60px 20px}
+.hero-left{flex:1}
+.hero-right{width:380px;display:flex;flex-direction:column;gap:18px;align-items:flex-end}
+.hero-title{font-size:56px;color:var(--accent1);margin-bottom:6px;font-family:'Orbitron'}
+.hero-tagline{color:var(--muted);margin-bottom:20px}
+.hero-ctas{display:flex;gap:12px;margin-bottom:18px}
+.btn{padding:10px 18px;border-radius:12px;border:none;cursor:pointer;font-weight:700}
+.btn.neon{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#021019;box-shadow:0 8px 40px rgba(0,240,255,0.04)}
+.btn.outline{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
+.chip{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.02);cursor:pointer}
+
+/* hero stats */
+.hero-stats{display:flex;gap:18px;margin-top:12px}
+.stat{background:var(--card);padding:10px 14px;border-radius:12px;text-align:center}
+.stat strong{display:block;font-size:18px;color:var(--accent1)}
+.muted{color:var(--muted);font-size:13px}
+
+/* code card */
+.code-card{width:320px;padding:14px;border-radius:12px;background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);box-shadow:0 12px 40px rgba(2,6,20,0.6)}
+.code-card pre{white-space:pre-wrap;color:var(--accent1);font-family:monospace}
+
+/* three logo canvas placeholder */
+.three-logo{width:320px;height:220px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);display:flex;align-items:center;justify-content:center}
+
+/* SECTION GENERIC */
+.section{padding:90px 6%}
+.section.alt{background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
+.container{max-width:1200px;margin:0 auto}
+.section-title{font-size:28px;color:var(--accent2);margin-bottom:14px}
+
+/* ABOUT GRID */
+.about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px}
+.about-card{background:var(--glass);padding:18px;border-radius:12px;backdrop-filter:blur(8px);text-align:left}
+.about-card i{font-size:26px;color:var(--accent1);margin-bottom:8px}
+
+/* SERVICES GRID */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.service-card{padding:22px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));text-align:center;transition:transform .28s, box-shadow .28s}
+.service-card:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(139,92,246,0.06)}
+
+/* PROJECTS */
+.projects-controls{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.filters{display:flex;gap:8px}
+.filter-btn{padding:8px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.03);color:var(--muted);cursor:pointer}
+.filter-btn.active{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#031018;border:none}
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.project-card{padding:18px;border-radius:12px;background:var(--card);display:flex;flex-direction:column;justify-content:space-between}
+.project-card .thumb{height:110px;border-radius:8px;background:linear-gradient(180deg, rgba(0,240,255,0.06), rgba(139,92,246,0.04));display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent1);margin-bottom:12px}
+.viewBtn{align-self:flex-start;padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--muted)}
+
+/* MODAL */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:2200}
+.modal-inner{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:28px;border-radius:14px;width:90%;max-width:720px;position:relative}
+.close-modal{position:absolute;top:12px;right:12px;background:transparent;border:none;color:var(--muted);font-size:26px;cursor:pointer}
+
+/* PLAYGROUND */
+.playground-wrap{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.editor textarea{width:100%;height:120px;padding:10px;border-radius:10px;border:none;background:rgba(255,255,255,0.02);color:var(--text);resize:vertical;margin-bottom:8px}
+.preview iframe{width:100%;height:360px;border-radius:10px;border:none;background:#fff}
+
+/* TERMINAL */
+.terminal{background:#000;padding:16px;border-radius:12px;color:#0f0;font-family:monospace;max-width:100%;overflow:auto}
+.terminal-output{min-height:120px}
+.terminal-input-wrap{display:flex;gap:8px;align-items:center;margin-top:8px}
+.terminal-input{flex:1;background:transparent;border:none;color:#0f0;outline:none;padding:6px}
+
+/* TIMELINE & BADGES */
+.timeline{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.timeline-item{display:flex;gap:12px;align-items:flex-start}
+.timeline-item .time{font-weight:700;color:var(--accent1);width:80px}
+.badges{display:flex;gap:10px;margin-top:12px}
+.badge{padding:8px 12px;border-radius:999px;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#021019;font-weight:700}
+
+/* TESTIMONIALS */
+.testimonial{padding:18px;border-radius:12px;background:var(--card);text-align:center}
+.swiper-pagination-bullet{background:var(--accent1)}
+
+/* BLOG */
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.blog-card{padding:16px;border-radius:12px;background:var(--card)}
+
+/* CONTACT & FOOTER */
+.contact-grid{display:grid;grid-template-columns:1fr 340px;gap:18px}
+.contact-form input, .contact-form textarea{padding:12px;border-radius:10px;border:none;background:rgba(255,255,255,0.02);color:var(--text)}
+.map-wrap iframe{width:100%;height:220px;border-radius:10px;border:none}
+.site-footer{padding:28px 6%;background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.8))}
+
+/* CHATBOT */
+.chatbot{position:fixed;right:22px;bottom:22px;width:320px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;box-shadow:0 20px 60px rgba(2,6,20,0.6);display:none;flex-direction:column;z-index:3000}
+.chatbot-header{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.02)}
+.chatbot-body{padding:12px;max-height:220px;overflow:auto}
+.chatbot-input{display:flex;gap:8px;padding:10px}
+
+/* BACK TO TOP */
+.back-top{position:fixed;right:22px;bottom:22px;padding:12px 14px;border-radius:12px;background:linear-gradient(90deg,var(--accent1),var(--accent2));border:none;color:#021019;cursor:pointer;display:none;z-index:1200}
+
+/* CURSOR */
+#cursor{position:fixed;pointer-events:none;z-index:4000;width:18px;height:18px;border-radius:50%;transform:translate(-50%,-50%);mix-blend-mode:screen;background:radial-gradient(circle, rgba(0,240,255,0.9), rgba(139,92,246,0.2));box-shadow:0 0 18px rgba(0,240,255,0.18);transition:transform .12s ease,width .12s,height .12s}
+
+/* small screens */
+@media(max-width:980px){
+  .about-grid,.services-grid{grid-template-columns:repeat(2,1fr)}
+  .projects-grid,.blog-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-inner{flex-direction:column;align-items:flex-start}
+  .mobile-only{display:inline-block}
+  .nav-links{display:none}
+}
+@media(max-width:640px){
+  .about-grid,.services-grid,.projects-grid,.team-grid{grid-template-columns:1fr}
+  .playground-wrap{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+}
+/* Theme Variables */
+:root {
+  --neon-color: #00ffff;
+}
+
+body { color:#fff; }
+.btn, .card:hover, .project-card:hover, .social-icons a:hover, .counter-number {
+  color: var(--neon-color);
+  border-color: var(--neon-color);
+}
+.btn:hover, .card:hover, .project-card:hover {
+  box-shadow: 0 0 20px var(--neon-color);
+}
+
+/* Theme Customizer Panel */
+#theme-customizer {
+  position:fixed;top:0;right:-300px;width:250px;height:100%;
+  background:#111;padding:20px;z-index:2000;
+  transition:0.3s;box-shadow:-5px 0 20px rgba(0,255,255,0.5);
+}
+#theme-customizer.active {right:0;}
+#theme-customizer h3 {color:var(--neon-color);}
+#theme-customizer label {display:block;margin:15px 0;}
+#theme-customizer input {width:100%;cursor:pointer;}
+#reset-theme {margin-top:20px;}
+#close-customizer {
+  position:absolute;top:10px;right:15px;cursor:pointer;color:var(--neon-color);
+}
+
+/* Floating Open Button */
+#open-customizer {
+  position:fixed;bottom:90px;right:30px;
+  padding:12px 15px;background:var(--neon-color);color:#000;
+  border:none;border-radius:50%;cursor:pointer;z-index:1500;
+  box-shadow:0 0 15px var(--neon-color);
+  transition:0.3s;
+}
+#open-customizer:hover {transform:scale(1.1);}
+</style>
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Libraries (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+
+  <!-- Swiper CSS (for testimonial carousel) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+  <!-- Meta tag for theme color -->
+  <meta name="theme-color" content="#081018" />
+</head>
+<body>
+
+  <!-- PRELOADER -->
+  <div id="preloader" class="preloader">
+    <div class="preloader-inner">
+      <div class="glitch" data-text="SANNXPLOIT">SANNXPLOIT</div>
+      <div class="loader-bar"><span></span></div>
+    </div>
+  </div>
+
+  <!-- PROGRESS BAR -->
+  <div id="progress-bar"></div>
+
+  <!-- CUSTOM CURSOR -->
+  <div id="cursor"></div>
+
+  <!-- NAVBAR -->
+  <header id="navbar" class="navbar">
+    <div class="brand">
+      <div class="brand-logo">SANNXPLOIT</div>
+      <div class="brand-sub">Explore the Future of Web Development</div>
+    </div>
+
+    <nav class="nav">
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#playground">Playground</a></li>
+        <li><a href="#terminal">Terminal</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="controls">
+      <button id="langToggle" class="icon-btn" title="Toggle language">EN/ID</button>
+      <button id="themeToggle" class="icon-btn" title="Toggle theme"><i class='bx bx-moon'></i></button>
+      <button id="menuBtn" class="icon-btn mobile-only" title="Menu"><i class='bx bx-menu'></i></button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section id="hero" class="hero">
+      <div id="particles-js" class="particles"></div>
+
+      <div class="hero-inner">
+        <div class="hero-left">
+          <h1 class="hero-title">SANNXPLOIT</h1>
+          <p class="hero-tagline"><span id="typed"></span></p>
+
+          <div class="hero-ctas">
+            <a href="#about" class="btn neon">Get Started</a>
+            <a href="#projects" class="btn outline">Explore Projects</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat"><strong id="statProjects">120</strong><span>Projects</span></div>
+            <div class="stat"><strong id="statTools">50</strong><span>Tools</span></div>
+            <div class="stat"><strong id="statTeam">12</strong><span>Team</span></div>
+          </div>
+
+          <div class="hero-small">
+            <button id="openChat" class="chip">Ask AI Assistant</button>
+            <button id="secretBtn" class="chip">Secret</button>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <!-- 3D Logo Canvas -->
+          <div id="threeLogo" class="three-logo"></div>
+
+          <!-- floating code snippet -->
+          <div class="code-card tilt" data-tilt>
+            <pre><code>&lt;h1&gt;Hello SANNXPLOIT&lt;/h1&gt;
+console.log('Future')</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="container">
+        <h2 class="section-title" data-i18n="about_title">About SANNXPLOIT</h2>
+        <p id="aboutText" data-i18n="about_text">SANNXPLOIT is a developer collective — ethical hacking, AI, and web engineering.</p>
+
+        <div class="about-grid">
+          <div class="about-card reveal">
+            <i class='bx bx-code-alt'></i>
+            <h3 data-i18n="web_dev">Web Development</h3>
+            <p>Fast, accessible, modern front-ends.</p>
+          </div>
+          <div class="about-card reveal">
+            <i class='bx bx-shield'></i>
+            <h3 data-i18n="cyber">Cyber Security</h3>
+            <p>Audits, pentest simulated labs & education-first approach.</p>
+          </div>
+          <div class="about-card reveal">
+            <i class='bx bx-robot'></i>
+            <h3 data-i18n="ai">AI Integration</h3>
+            <p>Assistants, automations, and ML pipelines.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="section alt">
+      <div class="container">
+        <h2 class="section-title">Services</h2>
+        <div class="services-grid">
+          <div class="service-card tilt">
+            <i class='bx bx-code'></i>
+            <h4>Web Development</h4>
+            <p>SPA, PWA, performance-first.</p>
+          </div>
+          <div class="service-card tilt">
+            <i class='bx bx-shield-alt-2'></i>
+            <h4>Cyber Security</h4>
+            <p>Pentest & secure architecture.</p>
+          </div>
+          <div class="service-card tilt">
+            <i class='bx bx-paint'></i>
+            <h4>UI/UX Design</h4>
+            <p>Design systems & accessibility.</p>
+          </div>
+          <div class="service-card tilt">
+            <i class='bx bx-brain'></i>
+            <h4>AI Integration</h4>
+            <p>Custom models & flows.</p>
+          </div>
+          <div class="service-card tilt">
+            <i class='bx bx-mobile-alt'></i>
+            <h4>Mobile Apps</h4>
+            <p>Cross-platform solutions.</p>
+          </div>
+          <div class="service-card tilt">
+            <i class='bx bx-cloud'></i>
+            <h4>Cloud Deployment</h4>
+            <p>CI/CD & infra automation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <div class="container">
+        <h2 class="section-title">Projects</h2>
+        <div class="projects-controls">
+          <div class="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="web">Web</button>
+            <button class="filter-btn" data-filter="mobile">Mobile</button>
+            <button class="filter-btn" data-filter="ai">AI</button>
+          </div>
+          <div class="sort">
+            <select id="sortProjects">
+              <option value="newest">Newest</option>
+              <option value="popular">Most Popular</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="projects-grid" id="projectsGrid">
+          <!-- sample project cards -->
+          <article class="project-card" data-type="web" data-pop="95">
+            <div class="thumb">Web</div>
+            <div class="meta">
+              <h3>Realtime Chat PWA</h3>
+              <p>Offline-first realtime chat demo.</p>
+              <div class="actions">
+                <button class="viewBtn" data-title="Realtime Chat" data-desc="Realtime PWA chat with offline mode.">View</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card" data-type="ai" data-pop="88">
+            <div class="thumb">AI</div>
+            <div class="meta">
+              <h3>Code Assistant</h3>
+              <p>AI assistant for code suggestions.</p>
+              <div class="actions"><button class="viewBtn" data-title="Code Assistant" data-desc="AI assistant for code completion & linting.">View</button></div>
+            </div>
+          </article>
+
+          <article class="project-card" data-type="mobile" data-pop="72">
+            <div class="thumb">Mobile</div>
+            <div class="meta">
+              <h3>Tracker App</h3>
+              <p>Health tracker with sync & insights.</p>
+              <div class="actions"><button class="viewBtn" data-title="Tracker App" data-desc="Health tracker with sync & analytics.">View</button></div>
+            </div>
+          </article>
+        </div>
+
+        <!-- project modal -->
+        <div id="projectModal" class="modal">
+          <div class="modal-inner">
+            <button class="close-modal">&times;</button>
+            <h3 id="pmTitle"></h3>
+            <p id="pmDesc"></p>
+            <div class="modal-actions">
+              <a id="pmDemo" class="btn neon small" href="#" target="_blank">Live Demo</a>
+              <a id="pmRepo" class="btn outline small" href="#" target="_blank">Repository</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLAYGROUND -->
+    <section id="playground" class="section alt">
+      <div class="container">
+        <h2 class="section-title">Interactive Code Playground</h2>
+        <div class="playground-wrap">
+          <div class="editor">
+            <label>HTML</label>
+            <textarea id="pgHTML" placeholder="&lt;h1&gt;Hello&lt;/h1&gt;"></textarea>
+            <label>CSS</label>
+            <textarea id="pgCSS" placeholder="body{font-family:Inter;}"></textarea>
+            <label>JS</label>
+            <textarea id="pgJS" placeholder="console.log('run')"></textarea>
+            <div class="pg-actions">
+              <button id="runCode" class="btn neon">Run</button>
+              <button id="resetCode" class="btn outline">Reset</button>
+              <button id="shareCode" class="btn outline">Save (local)</button>
+            </div>
+          </div>
+
+          <div class="preview">
+            <label>Result</label>
+            <iframe id="pgResult" sandbox="allow-scripts allow-same-origin" title="preview"></iframe>
+            <small class="muted">Preview is sandboxed for safety.</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TERMINAL -->
+    <section id="terminal" class="section">
+      <div class="container">
+        <h2 class="section-title">Interactive Terminal (Sim)</h2>
+        <div id="terminalBox" class="terminal">
+          <div id="terminalOutput" class="terminal-output">Welcome to SANNXPLOIT Terminal. Type <code>help</code>.</div>
+          <div class="terminal-input-wrap">
+            <span class="prompt">></span>
+            <input id="terminalInput" class="terminal-input" placeholder="Type command (help)..." />
+          </div>
+        </div>
+
+        <div class="terminal-commands">
+          <button class="cmd-btn" data-cmd="help">help</button>
+          <button class="cmd-btn" data-cmd="about">about</button>
+          <button class="cmd-btn" data-cmd="projects">projects</button>
+          <button class="cmd-btn" data-cmd="clear">clear</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE + ACHIEVEMENTS -->
+    <section id="timeline" class="section alt">
+      <div class="container">
+        <h2 class="section-title">Timeline & Achievements</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="time">2019</div>
+            <div class="event">Project Kickoff — Founding SANNXPLOIT</div>
+          </div>
+          <div class="timeline-item">
+            <div class="time">2021</div>
+            <div class="event">Launched AI Assistant</div>
+          </div>
+          <div class="timeline-item">
+            <div class="time">2024</div>
+            <div class="event">120+ Projects Completed</div>
+          </div>
+        </div>
+
+        <div class="badges">
+          <div class="badge">Top Dev</div>
+          <div class="badge">Security Lab</div>
+          <div class="badge">AI Pioneer</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="section">
+      <div class="container">
+        <h2 class="section-title">Testimonials</h2>
+        <div class="swiper testimonial-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide testimonial">
+              <img src="https://i.pravatar.cc/64?u=1" alt="avatar">
+              <p>"Fantastic collaboration and fast delivery." — Rizal</p>
+            </div>
+            <div class="swiper-slide testimonial">
+              <img src="https://i.pravatar.cc/64?u=2" alt="avatar">
+              <p>"AI assistant is a lifesaver." — Siti</p>
+            </div>
+            <div class="swiper-slide testimonial">
+              <img src="https://i.pravatar.cc/64?u=3" alt="avatar">
+              <p>"Secure and reliable." — Adam</p>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOG -->
+    <section id="blog" class="section alt">
+      <div class="container">
+        <h2 class="section-title">Blog / Articles</h2>
+        <div class="blog-grid">
+          <article class="blog-card reveal">
+            <h3>Future of Web Development</h3>
+            <p>Progressive web experiences & AI assisted dev.</p>
+            <a class="readmore" href="#">Read →</a>
+          </article>
+
+          <article class="blog-card reveal">
+            <h3>Ethical Hacking 101</h3>
+            <p>Responsible methodology & lab setup.</p>
+            <a class="readmore" href="#">Read →</a>
+          </article>
+
+          <article class="blog-card reveal">
+            <h3>AI & Coding Synergy</h3>
+            <p>How AI improves productivity & testing.</p>
+            <a class="readmore" href="#">Read →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="container">
+        <h2 class="section-title">Contact</h2>
+        <div class="contact-grid">
+          <form id="contactForm" class="contact-form">
+            <label for="cname">Name</label>
+            <input id="cname" name="name" required placeholder="Your name">
+            <label for="cemail">Email</label>
+            <input id="cemail" type="email" name="email" required placeholder="you@domain.com">
+            <label for="cmsg">Message</label>
+            <textarea id="cmsg" name="message" rows="5" required placeholder="Describe your project..."></textarea>
+            <div class="form-actions">
+              <button type="submit" class="btn neon">Send Message</button>
+            </div>
+          </form>
+
+          <div class="contact-side">
+            <div class="map-wrap">
+              <iframe src="https://maps.google.com/maps?q=Jakarta&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <div class="socials">
+              <a href="#" class="social neon"><i class='bx bxl-github'></i></a>
+              <a href="#" class="social neon"><i class='bx bxl-linkedin'></i></a>
+              <a href="#" class="social neon"><i class='bx bxl-instagram'></i></a>
+              <a href="#" class="social neon"><i class='bx bxl-discord'></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="f-left">
+        <div class="f-logo">SANNXPLOIT</div>
+        <div class="f-tag">Explore the Future of Web Development</div>
+      </div>
+      <div class="f-right">
+        <small>© <span id="year"></span> SANNXPLOIT — All rights reserved.</small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BACK TO TOP -->
+  <button id="backToTop" class="back-top" title="Back to top">↑</button>
+
+  <!-- PROJECT MODAL (duplicated near end for layering) -->
+  <!-- (already defined above as #projectModal) -->
+
+  <!-- AI CHAT BOT (DUMMY UI) -->
+  <div id="chatbot" class="chatbot">
+    <div class="chatbot-header">
+      <div>AI Assistant</div>
+      <button id="closeChat" class="icon-btn"><i class='bx bx-x'></i></button>
+    </div>
+    <div class="chatbot-body" id="chatBody">
+      <div class="bot-msg">Hi — Ask me about web dev, security, or playground usage.</div>
+    </div>
+    <div class="chatbot-input">
+      <input id="chatInput" placeholder="Ask AI (demo)..." />
+      <button id="chatSend" class="btn small">Send</button>
+    </div>
+  </div>
+  
+  <!-- Theme Customizer -->
+  <div id="theme-customizer">
+    <h3>🎨 Theme Customizer</h3>
+    <label for="color-picker">Pick Neon Color:</label>
+    <input type="color" id="color-picker" value="#00ffff">
+    <button id="reset-theme" class="btn">Reset</button>
+    <span id="close-customizer">✖</span>
+  </div>
+
+  <!-- Floating button to open customizer -->
+  <button id="open-customizer">🎨</button>
+
+  <!-- SOUND FX (hidden audio elements) -->
+  <audio id="sfx-click" src="https://freesound.org/data/previews/522/522515_10282464-lq.mp3"></audio>
+  <audio id="sfx-unlock" src="https://freesound.org/data/previews/331/331912_3248244-lq.mp3"></audio>
+
+
+  <!-- Script -->
+  <script>
+    /* SANNXPLOIT — script.js
+   All UI behaviors, feature wiring, and frontend-only implementations.
+   Load this with <script defer src="script.js" in index.html*/
+
+/* ---------- Short helpers ---------- */
+const qs = sel => document.querySelector(sel);
+const qsa = sel => Array.from(document.querySelectorAll(sel));
+const on = (el, ev, fn) => el && el.addEventListener(ev, fn);
+
+/* ---------- Basic DOM refs ---------- */
+const preloader = qs('#preloader');
+const navbar = qs('#navbar');
+const progressBar = qs('#progress-bar');
+const cursor = qs('#cursor');
+const backToTop = qs('#backToTop');
+const themeToggle = qs('#themeToggle');
+const langToggle = qs('#langToggle');
+const yearEl = qs('#year');
+
+/* ---------- Init small state ---------- */
+if (yearEl) yearEl.textContent = new Date().getFullYear();
+let xp = parseInt(localStorage.getItem('sxp') || '0', 10);
+
+/* ---------- Preloader ---------- */
+window.addEventListener('load', () => {
+  // small delay for visual
+  setTimeout(() => {
+    if (preloader) preloader.style.display = 'none';
+  }, 450);
+});
+
+/* ---------- ParticlesJS ---------- */
+if (window.particlesJS) {
+  particlesJS('particles-js', {
+    "particles": {
+      "number": { "value": 80 },
+      "color": { "value": ["#00f0ff", "#8b5cf6", "#10b981"] },
+      "shape": { "type": "circle" },
+      "opacity": { "value": 0.12 },
+      "size": { "value": 3 },
+      "line_linked": { "enable": true, "distance": 140, "color": "#00f0ff", "opacity": 0.06, "width": 1 },
+      "move": { "enable": true, "speed": 1 }
+    },
+    "interactivity": {
+      "events": {
+        "onhover": { "enable": true, "mode": "grab" },
+        "onclick": { "enable": true, "mode": "push" }
+      }
+    },
+    "retina_detect": true
+  });
+}
+
+/* ---------- Custom Cursor ---------- */
+document.addEventListener('mousemove', (e) => {
+  if (cursor) {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  }
+});
+['a', 'button', '.btn', '.viewBtn', '.icon-btn'].forEach(sel => {
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest(sel)) {
+      cursor.style.transform = 'translate(-50%,-50%) scale(1.8)';
+    }
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest(sel)) {
+      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+    }
+  });
+});
+
+/* ---------- Sticky navbar + progress + back to top ---------- */
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  if (y > 60) navbar.classList.add('scrolled'); else navbar.classList.remove('scrolled');
+
+  // progress bar
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrolled = (window.scrollY / Math.max(docHeight, 1)) * 100;
+  progressBar.style.width = scrolled + '%';
+
+  // back to top
+  if (y > 300) backToTop.style.display = 'inline-block';
+  else backToTop.style.display = 'none';
+});
+if (backToTop) backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+/* ---------- Typed.js intro ---------- */
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.Typed) {
+    new Typed('#typed', {
+      strings: [
+        'Explore the Future of Web Development',
+        'Ethical Hacking — Secure by Design',
+        'AI-driven Web & Tools'
+      ],
+      typeSpeed: 40,
+      backSpeed: 25,
+      backDelay: 1600,
+      loop: true
+    });
+  }
+
+  // init Swiper (testimonials)
+  if (window.Swiper) {
+    const swiper = new Swiper('.testimonial-swiper', {
+      slidesPerView: 1,
+      loop: true,
+      pagination: { el: '.swiper-pagination', clickable: true },
+      autoplay: { delay: 4200 }
+    });
+  }
+
+  // init VanillaTilt
+  if (window.VanillaTilt) {
+    qsa('.tilt,[data-tilt]').forEach(el => VanillaTilt.init(el, { max: 12, speed: 400, glare: true, "max-glare": 0.12 }));
+  }
+
+  // small entrance animations with GSAP
+  if (window.gsap) {
+    gsap.from('.service-card', { y: 30, opacity: 0, duration: 0.9, stagger: 0.06, ease: 'power3.out' });
+    gsap.from('.project-card', { y: 16, opacity: 0, duration: 0.8, stagger: 0.06 });
+  }
+});
+
+/* ---------- Reveal on scroll simple ---------- */
+const revealEls = qsa('.reveal');
+const revealOnScroll = () => {
+  const trigger = window.innerHeight * 0.85;
+  revealEls.forEach(el => {
+    const top = el.getBoundingClientRect().top;
+    if (top < trigger) el.classList.add('active-reveal');
+  });
+};
+window.addEventListener('scroll', revealOnScroll);
+revealOnScroll();
+
+/* ---------- Projects Filter & Modal ---------- */
+const projectsGrid = qs('#projectsGrid');
+qsa('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    qsa('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    qsa('.project-card').forEach(card => {
+      const type = card.dataset.type;
+      card.style.display = (filter === 'all' || filter === type) ? 'flex' : 'none';
+    });
+  });
+});
+qs('#sortProjects')?.addEventListener('change', (e) => {
+  const val = e.target.value;
+  const cards = qsa('.project-card');
+  const sorted = cards.sort((a, b) => {
+    const pa = parseInt(a.dataset.pop || 0, 10), pb = parseInt(b.dataset.pop || 0, 10);
+    return val === 'popular' ? (pb - pa) : 0;
+  });
+  sorted.forEach(c => projectsGrid.appendChild(c));
+});
+
+// project modal
+const modal = qs('#projectModal');
+const pmTitle = qs('#pmTitle');
+const pmDesc = qs('#pmDesc');
+qsa('.viewBtn').forEach(b => {
+  b.addEventListener('click', e => {
+    const el = e.currentTarget;
+    pmTitle.textContent = el.dataset.title;
+    pmDesc.textContent = el.dataset.desc;
+    qs('#pmDemo').href = '#';
+    qs('#pmRepo').href = '#';
+    modal.style.display = 'flex';
+  });
+});
+qs('.close-modal')?.addEventListener('click', () => modal.style.display = 'none');
+modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none' });
+
+/* ---------- Interactive Code Playground (save to localStorage, share via url hash) ---------- */
+const pgHTML = qs('#pgHTML'), pgCSS = qs('#pgCSS'), pgJS = qs('#pgJS'), pgResult = qs('#pgResult');
+const runBtn = qs('#runCode'), resetBtn = qs('#resetCode'), shareBtn = qs('#shareCode');
+const defaultHTML = `<div style="padding:20px"><h2 style="color:${'#00f0ff'}">Hello from SANNXPLOIT</h2><p>Try editing this snippet.</p></div>`;
+const defaultCSS = `body{font-family:Inter, sans-serif;background:transparent;color:#e6eef8} h2{font-weight:700}`;
+const defaultJS = `// console.log('SANNXPLOIT playground')`;
+
+function renderPreview() {
+  const doc = pgResult.contentWindow.document;
+  const html = pgHTML.value || '';
+  const css = `<style>${pgCSS.value || ''}</style>`;
+  const js = `<script>${pgJS.value || ''}<\/script>`;
+  doc.open();
+  doc.write(`${css}${html}${js}`);
+  doc.close();
+}
+runBtn?.addEventListener('click', renderPreview);
+resetBtn?.addEventListener('click', () => {
+  pgHTML.value = defaultHTML; pgCSS.value = defaultCSS; pgJS.value = defaultJS;
+  renderPreview();
+});
+shareBtn?.addEventListener('click', () => {
+  const payload = { html: pgHTML.value, css: pgCSS.value, js: pgJS.value };
+  localStorage.setItem('sannx_playground', JSON.stringify(payload));
+  alert('Saved locally (localStorage). You can export this file later.');
+});
+
+// init defaults
+if (pgHTML) { pgHTML.value = defaultHTML; pgCSS.value = defaultCSS; pgJS.value = defaultJS; setTimeout(renderPreview, 200); }
+
+/* ---------- Terminal Sim (fake) ---------- */
+const terminalInput = qs('#terminalInput');
+const terminalOutput = qs('#terminalOutput');
+function tPrint(msg) {
+  const d = document.createElement('div'); d.textContent = msg; terminalOutput.appendChild(d); terminalOutput.scrollTop = terminalOutput.scrollHeight;
+}
+if (terminalInput) {
+  terminalInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      const val = terminalInput.value.trim();
+      if (!val) return;
+      tPrint('> ' + val);
+      if (val === 'help') tPrint('Commands: help, about, projects, badges, xp, clear');
+      else if (val === 'about') tPrint('SANNXPLOIT — Futuristic Web Dev & Ethical Hacking');
+      else if (val === 'projects') tPrint('Open the Projects section on the page.');
+      else if (val === 'badges') tPrint('Badges: Top Dev, Security Lab, AI Pioneer');
+      else if (val === 'xp') tPrint(`Your XP: ${xp}`);
+      else if (val === 'clear') { terminalOutput.innerHTML = ''; }
+      else tPrint('Unknown command: ' + val);
+      terminalInput.value = '';
+    }
+  });
+}
+qsa('.cmd-btn').forEach(btn => btn.addEventListener('click', () => {
+  const c = btn.dataset.cmd; if (terminalInput) { terminalInput.value = c; terminalInput.dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter' })); }
+}));
+
+/* ---------- AI Chatbot (frontend dummy) ---------- */
+const openChat = qs('#openChat'), chatBot = qs('#chatbot'), closeChat = qs('#closeChat'), chatSend = qs('#chatSend'), chatInput = qs('#chatInput'), chatBody = qs('#chatBody');
+if (openChat) openChat.addEventListener('click', () => { chatBot.style.display = 'flex'; addXP(5); playSfx('click'); });
+if (closeChat) closeChat.addEventListener('click', () => { chatBot.style.display = 'none'; });
+if (chatSend) chatSend.addEventListener('click', () => {
+  const txt = chatInput.value.trim(); if (!txt) return;
+  const userDiv = document.createElement('div'); userDiv.className = 'user-msg'; userDiv.textContent = txt; chatBody.appendChild(userDiv);
+  chatInput.value = '';
+  setTimeout(() => {
+    const botDiv = document.createElement('div'); botDiv.className = 'bot-msg';
+    // simplistic canned responses
+    if (/help|how|what/i.test(txt)) botDiv.textContent = 'You can ask about services, playground or projects. (This is a demo AI)';
+    else if (/playground|run|code/i.test(txt)) botDiv.textContent = 'Open Playground → edit HTML/CSS/JS and click Run.';
+    else if (/security|hack/i.test(txt)) botDiv.textContent = 'We focus on ethical hacking & safe lab simulations. Education-first.';
+    else botDiv.textContent = "Nice question — this is a demo assistant. Integrate an API for real answers.";
+    chatBody.appendChild(botDiv);
+    chatBody.scrollTop = chatBody.scrollHeight;
+    addXP(2);
+    playSfx('click');
+  }, 700);
+});
+
+/* ---------- Achievements / Gamification (XP) ---------- */
+function addXP(amount) {
+  xp = Math.min(9999, xp + amount);
+  localStorage.setItem('sxp', xp.toString());
+  // visual feedback
+  gsap.fromTo('.hero-stats .stat strong', { scale: 0.96 }, { scale: 1, duration: 0.45, ease: 'elastic.out(1,0.7)' });
+  // if reach milestone
+  if (xp >= 100 && !localStorage.getItem('s_ann_unlocked')) {
+    localStorage.setItem('s_ann_unlocked', '1');
+    alert('🎉 Achievement unlocked: Newcomer (100 XP)!');
+    playSfx('unlock');
+  }
+}
+
+/* ---------- Sound FX helpers ---------- */
+function playSfx(name) {
+  try {
+    const click = document.getElementById('sfx-click');
+    const unlock = document.getElementById('sfx-unlock');
+    if (name === 'click' && click) { click.currentTime = 0; click.play().catch(()=>{}); }
+    if (name === 'unlock' && unlock) { unlock.currentTime = 0; unlock.play().catch(()=>{}); }
+  } catch (e) {}
+}
+
+/* ---------- Konami Code Easter Egg ---------- */
+const konami = [38,38,40,40,37,39,37,39,66,65]; let konIndex = 0;
+window.addEventListener('keydown', (e) => {
+  if (e.keyCode === konami[konIndex]) {
+    konIndex++;
+    if (konIndex === konami.length) {
+      konIndex = 0;
+      // secret: flip theme & big animation
+      document.body.style.background = 'linear-gradient(180deg,#071018,#0b0816)';
+      gsap.to('body', { backgroundColor: '#071018', duration: 0.6 });
+      alert('🔮 Konami unlocked: Hidden Realm!');
+      addXP(50);
+    }
+  } else konIndex = 0;
+});
+
+/* ---------- Dark / Light Mode Toggle (basic) ---------- */
+let lightMode = false;
+themeToggle?.addEventListener('click', () => {
+  lightMode = !lightMode;
+  if (lightMode) {
+    document.documentElement.style.setProperty('--bg', '#f7fbff');
+    document.body.style.background = '#f7fbff';
+    themeToggle.innerHTML = "<i class='bx bx-sun'></i>";
+  } else {
+    document.body.style.background = '';
+    themeToggle.innerHTML = "<i class='bx bx-moon'></i>";
+  }
+});
+
+/* ---------- Language Toggle (EN/ID) ---------- */
+const i18n = {
+  en: {
+    about_title: 'About SANNXPLOIT',
+    about_text: 'SANNXPLOIT is a developer collective — ethical hacking, AI, and web engineering.',
+    web_dev: 'Web Development',
+    cyber: 'Cyber Security',
+    ai: 'AI Integration'
+  },
+  id: {
+    about_title: 'Tentang SANNXPLOIT',
+    about_text: 'SANNXPLOIT adalah komunitas developer — hacking etis, AI, dan rekayasa web.',
+    web_dev: 'Pengembangan Web',
+    cyber: 'Keamanan Siber',
+    ai: 'Integrasi AI'
+  }
+};
+function applyLang(lang) {
+  qsa('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18n[lang] && i18n[lang][key]) el.textContent = i18n[lang][key];
+  });
+}
+langToggle?.addEventListener('click', () => {
+  const current = localStorage.getItem('sx_lang') || 'en';
+  const next = current === 'en' ? 'id' : 'en';
+  localStorage.setItem('sx_lang', next);
+  applyLang(next);
+});
+applyLang(localStorage.getItem('sx_lang') || 'en');
+
+/* ---------- Three.js simple rotating 3D logo ---------- */
+function initThreeLogo() {
+  const el = qs('#threeLogo');
+  if (!el || !window.THREE) return;
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(35, el.clientWidth / el.clientHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(el.clientWidth, el.clientHeight);
+  el.appendChild(renderer.domElement);
+
+  const geometry = new THREE.TorusKnotGeometry(8, 2.4, 128, 32);
+  const material = new THREE.MeshStandardMaterial({ color: 0x00f0ff, emissive: 0x220044, metalness: 0.6, roughness: 0.2 });
+  const knot = new THREE.Mesh(geometry, material);
+  scene.add(knot);
+
+  const light = new THREE.PointLight(0x00f0ff, 1.2); light.position.set(20, 20, 20); scene.add(light);
+  const light2 = new THREE.PointLight(0x8b5cf6, 0.6); light2.position.set(-20, -10, 10); scene.add(light2);
+
+  camera.position.z = 30;
+
+  function animate() {
+    requestAnimationFrame(animate);
+    knot.rotation.x += 0.006;
+    knot.rotation.y += 0.01;
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // handle resize
+  window.addEventListener('resize', () => {
+    renderer.setSize(el.clientWidth, el.clientHeight);
+    camera.aspect = el.clientWidth / el.clientHeight;
+    camera.updateProjectionMatrix();
+  });
+}
+window.addEventListener('DOMContentLoaded', initThreeLogo);
+
+/* ---------- Testimonials (swiper already init in DOMContentLoaded) ---------- */
+
+/* ---------- Contact Form front-end validation ---------- */
+const contactForm = qs('#contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = qs('#cname').value.trim();
+    const email = qs('#cemail').value.trim();
+    const msg = qs('#cmsg').value.trim();
+    // validation
+    if (!name || !email || !msg) { alert('Please fill all fields.'); return; }
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRe.test(email)) { alert('Invalid email.'); return; }
+    // simulate send
+    alert('✅ Message Sent! (frontend demo only)');
+    contactForm.reset();
+    addXP(10);
+    playSfx('click');
+  });
+}
+
+/* ---------- Small helpers: view project details increments XP ---------- */
+qsa('.viewBtn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    addXP(3);
+    playSfx('click');
+  });
+});
+
+/* ---------- Accessibility: close modal with Esc ---------- */
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') modal.style.display = 'none';
+});
+
+/* ---------- Tiny performance debounce on resize ---------- */
+let resizeTimer; window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(()=>{ /* can recalc layouts */ }, 200); });
+  </script>
+</body>
+</html>
